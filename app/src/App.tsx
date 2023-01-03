@@ -1,25 +1,23 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PageLayout from './layout/Header';
+import { DashboardScreen } from './screens/DashboardScreen';
+import { MusicScreen } from './screens/MusicScreen';
+import { EventScreen } from './screens/EventScreen';
+import { SettingScreen } from './screens/SettingScreen';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path={`/dashboard`} element={<DashboardScreen />} />
+        <Route path={`/delivery-music`} element={<MusicScreen />} />
+        <Route path={`/event-setting`} element={<EventScreen />} />
+        <Route path={`/settings`} element={<SettingScreen />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
