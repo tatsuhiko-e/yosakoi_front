@@ -52,7 +52,7 @@ const PageLayout = ({ children }: any) => {
               <UserName>江口正樹</UserName>
             </div>
           </Header>
-          <Content style={{ margin: '24px 16px 0', height: "100vh" }}>
+          <Content style={{ padding: "26px 16px", height: "100vh", overflow: "scroll" }}>
             {children}
           </Content>
           <Footer style={{ textAlign: 'center' }}>Yosakoi Music ©︎2022</Footer>
