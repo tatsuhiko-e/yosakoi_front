@@ -7,7 +7,6 @@ import { Chart as ChartJS, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2'
 import { Pie } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-import { MusicDetailContainer } from '../components/MusicDetailContainer';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { DefaultButton } from '../components/button/DefaultButton';
 import { TextCheckbox } from '../components/input/CheckboxText';
@@ -284,7 +283,6 @@ export const DashboardScreen = () => {
             </DashboardItem>
           </Grid>
         </Grid>
-          <MusicDetailContainer />
       </PageLayout>
     </>
   );
