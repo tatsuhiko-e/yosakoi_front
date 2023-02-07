@@ -218,7 +218,7 @@ export const DashboardScreen = () => {
                   <TextCheckbox onChange={onChangeSnsDisplayButton}>SNSボタンを表示</TextCheckbox>
                 </Grid>
                 <Grid item xs={6} style={{textAlign:"right", paddingRight: "50px"}}>
-                  <DefaultButton onClick={displayButtonOnSubmit} color={"green"}>保存</DefaultButton>
+                  <DefaultButton onClick={displayButtonOnSubmit} color={"green"}  height={"36px"} width={"100px"}>保存</DefaultButton>
                 </Grid>
               </Grid>
             </TeamDetailContainer>
@@ -284,7 +284,7 @@ export const DashboardScreen = () => {
             </DashboardItem>
           </Grid>
         </Grid>
-          <MusicDetailContainer></MusicDetailContainer>
+          <MusicDetailContainer />
       </PageLayout>
     </>
   );
