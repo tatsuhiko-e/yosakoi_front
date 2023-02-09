@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
 import styled from 'styled-components';
-import { Box, Grid, IconButton, Modal, Typography } from '@mui/material';
+import { Box, Grid, Modal, Typography } from '@mui/material';
 import MusicIconImage from '../image/musicIcon.png';
-import { DefaultIconButton } from '../button/DeleteIconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import PublicIcon from '@mui/icons-material/Public';
 import PublicOffIcon from '@mui/icons-material/PublicOff';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';

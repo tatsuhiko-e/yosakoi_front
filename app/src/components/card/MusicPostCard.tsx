@@ -1,14 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { Button, Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
 import styled from 'styled-components';
-import { Box, Grid, IconButton, Modal, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { DefaultInputForm } from '../input/DefaultInputForm';
 import { DefaultTextArea } from '../input/DefaultinputTextArea';
 import { UploadButton } from '../button/UploadButton';
 import { DefaultButton } from '../button/DefaultButton';
 import ClearIcon from '@mui/icons-material/Clear';
-import { fontSize } from '@mui/system';
 
 const style = {
   position: 'absolute' as 'absolute',
