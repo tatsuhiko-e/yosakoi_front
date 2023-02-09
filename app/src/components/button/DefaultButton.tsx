@@ -1,28 +1,29 @@
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import styled from 'styled-components'
-import InfoIcon from '@mui/icons-material/Info';
 
 type DefaultButtonProps = {
   children: string,
   onClick: any,
   color: string,
+  width: string,
+  height: string
 }
 
-const StyleButton = styled.button<{color: string}>`
+export const DefaultButton = (props: DefaultButtonProps) => {
+
+  const StyleButton = styled.button<{color: string, width: string, height: string }>`
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-  width: 100px;
-  height: 36px;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   margin: auto;
   border: none;
   border-radius: 8px;
   background-color: ${(props) => props.color};
 `
 
-export const DefaultButton = (props: DefaultButtonProps) => {
   return (
-    <StyleButton onClick={props.onClick} color={props.color}>
+    <StyleButton onClick={props.onClick} color={props.color} width={props.width} height={props.height}>
       {props.children}
     </StyleButton>
   );
