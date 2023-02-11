@@ -24,7 +24,7 @@ const PageLayout = ({ children }: any) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Fragment>
-      <Layout>
+      <Layout style={{margin: 0}}>
         <Sider
           breakpoint="lg"
           collapsedWidth="0"

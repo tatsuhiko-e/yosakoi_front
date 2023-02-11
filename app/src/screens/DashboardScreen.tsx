@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import PageLayout from '../layout/Header';
 import { Grid } from '@mui/material';
@@ -10,6 +10,7 @@ import { Bar } from 'react-chartjs-2';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { DefaultButton } from '../components/button/DefaultButton';
 import { TextCheckbox } from '../components/input/CheckboxText';
+import { SnsIconButton } from '../components/button/SnsIconButton';
 
 ChartJS.register(...registerables);
 
@@ -61,7 +62,7 @@ const DashboardItem = styled.div`
 
 const TeamIntroductionContainer = styled.div`
   width: 90%;
-  height: 220px;
+  height: 200px;
   margin: 0 auto;
   background-color: #ececec;
 `
@@ -207,17 +208,17 @@ export const DashboardScreen = () => {
               <TeamIntroductionContainer>
               </TeamIntroductionContainer>
               <Grid container spacing={2} style={{width: "90%", margin: "0 auto"}}>
-                <Grid item xs={6}>
-                  <TextCheckbox onChange={onChangeMembersWantedButton}>メンバー募集ボタンを表示</TextCheckbox>
+                <Grid item xs={6} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"twitter"} onClick={()=> console.log("twitter")} />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextCheckbox onChange={onChangeExperienceSessionButton}>体験会参加ボタンを表示</TextCheckbox>
+                <Grid item xs={6} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"facebook"} onClick={()=> console.log("twitter")} />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextCheckbox onChange={onChangeSnsDisplayButton}>SNSボタンを表示</TextCheckbox>
+                <Grid item xs={6} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"instagram"} onClick={()=> console.log("twitter")} />
                 </Grid>
-                <Grid item xs={6} style={{textAlign:"right", paddingRight: "50px"}}>
-                  <DefaultButton onClick={displayButtonOnSubmit} color={"green"}  height={"36px"} width={"100px"}>保存</DefaultButton>
+                <Grid item xs={6} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"youtube"} onClick={()=> console.log("twitter")} />
                 </Grid>
               </Grid>
             </TeamDetailContainer>
