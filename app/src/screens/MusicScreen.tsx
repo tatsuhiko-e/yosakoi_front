@@ -15,17 +15,17 @@ const data: DataType[] = [
   {
     id: 1,
     title: 'John Brown',
-    theme: '曲のテーマですわーーーーーーーーーーーーーーこの曲を聴くといい気分になるわよ',
+    theme: '曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ',
   },
   {
     id: 2,
     title: 'Jim Green',
-    theme: 'London No. 1 曲のテーマですわーーーーーーーーーーーーーーこの曲を聴くといい気分になるぜ',
+    theme: 'London No. 1London No. 1London No. 1London No. 1London No. 1London No. 1',
   },
   {
     id: 3,
     title: 'Joe Black',
-    theme: '曲のテーマですわーーーーーーーーーーーーーーこの曲を聴くといい気分になんです Lake Park',
+    theme: 'Lake ParkLake ParkLake ParkLake ParkLake ParkLake ParkLake Park',
   },
 ];
 
