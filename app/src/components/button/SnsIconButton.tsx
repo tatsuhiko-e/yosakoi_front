@@ -39,7 +39,7 @@ export const SnsIconButton = (props: IconButtonProps) => {
   `
 
   const IconButtonContainer = styled.button`
-    width: 60%;
+    width: 80%;
     height: 45px;
     margin: auto;
     border: none;

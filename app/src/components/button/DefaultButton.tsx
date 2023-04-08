@@ -6,7 +6,8 @@ type DefaultButtonProps = {
   onClick: any,
   color: string,
   width: string,
-  height: string
+  height: string,
+  type?: "button" | "submit" | "reset" | undefined
 }
 
 export const DefaultButton = (props: DefaultButtonProps) => {
@@ -17,14 +18,14 @@ export const DefaultButton = (props: DefaultButtonProps) => {
   font-weight: bold;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  margin: auto;
+  margin: 16px auto;
   border: none;
   border-radius: 8px;
   background-color: ${(props) => props.color};
 `
 
   return (
-    <StyleButton onClick={props.onClick} color={props.color} width={props.width} height={props.height}>
+    <StyleButton type={props.type} onClick={props.onClick} color={props.color} width={props.width} height={props.height}>
       {props.children}
     </StyleButton>
   );

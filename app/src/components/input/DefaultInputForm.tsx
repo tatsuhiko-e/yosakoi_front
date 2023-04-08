@@ -4,8 +4,10 @@ import styled from 'styled-components'
 
 type InputFromProps = {
   onChange: any,
-  children: string,
-  value: string
+  children?: string,
+  value: string,
+  placeholder?: string,
+  type?: string
 }
 
 const InputFormText = styled.div`
@@ -25,7 +27,7 @@ export const DefaultInputForm = (props: InputFromProps) => {
   return (
     <>
       <InputFormText>{props.children}</InputFormText>
-      <AntdInput onChange={props.onChange} value={props.value} />
+      <AntdInput type={props.type} onChange={props.onChange} value={props.value} placeholder={props.placeholder} />
     </>
   );
 }
