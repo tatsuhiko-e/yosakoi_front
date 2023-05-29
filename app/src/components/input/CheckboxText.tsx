@@ -4,7 +4,9 @@ import styled from 'styled-components'
 
 type IconButtonProps = {
   children: string,
-  onChange: any
+  onChange: (e :any) => void,
+  indeterminate?: boolean,
+  checked: boolean
 }
 
 const CheckboxText = styled(Checkbox)`
@@ -26,7 +28,7 @@ const CheckboxText = styled(Checkbox)`
 
 export const TextCheckbox = (props: IconButtonProps) => {
   return (
-    <CheckboxText onChange={props.onChange}>
+    <CheckboxText onChange={props.onChange} indeterminate={props.indeterminate} checked={props.checked}>
       {props.children}
     </CheckboxText>
   );
