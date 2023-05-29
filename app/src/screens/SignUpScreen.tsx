@@ -35,7 +35,7 @@ export const SignUpScreen = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: "#dddddd",
+      background: "#3e95b5",
     }}>
       <div style={{
         width: "64%",
@@ -82,7 +82,7 @@ export const SignUpScreen = () => {
               <LoginInput type={"password"} onChange={onChange} value={value} placeholder={"confirm password"} />
             )}
           />
-          <DefaultButton type={"submit"} onClick={() => console.log("submit")} width={"360px"} height={"48px"} children={"Login"} color={"green"} />
+          <DefaultButton type={"submit"} onClick={() => console.log("submit")} width={"360px"} height={"48px"} children={"Login"} color={"#009ffb"} />
           <div style={{ textAlign: "center", marginTop: "8px" }}><Link to="/SignUp">メールアドレスを忘れた場合</Link></div>
           <hr style={{ width: "90%", margin: "16px auto" }} />
           <div style={{ textAlign: "center", marginTop: "8px" }}><Link to="/Login">アカウントをお持ちの方</Link></div>
