@@ -8,6 +8,12 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import { DefaultButton } from '../button/DefaultButton';
 
+type MusicType = {
+  title: string;
+  theme: string;
+  
+}
+
 const MusicImage = styled.img`
   width: 90%;
   height: auto;
@@ -27,7 +33,8 @@ const MusicTheme = styled.div`
 `
 
 const IconButtonContainer = styled.button`
-  background-color: #fdfdfd;
+  background-color: #ffffff;
+  box-shadow: 1px 3px 3px 1px #999;
   border: solid #7a7a7a;
   border-radius: 10px;
   text-align: center;
@@ -85,6 +92,7 @@ export const MusicListCard = (props: any) => {
     margin: 16px auto;
     width: 96%;
     height: auto;
+    background-color: #ffffff;
     border: 1px solid #888888;
     border-left: 24px solid ${(musicDeliveryStatus ? "#2681ff" : "#ff5b5b")};
     box-shadow: 1px 5px 5px 1px #999;

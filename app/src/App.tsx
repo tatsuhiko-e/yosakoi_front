@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import PageLayout from './layout/Header';
 import { DashboardScreen } from './screens/DashboardScreen';
@@ -7,6 +6,8 @@ import { MusicScreen } from './screens/MusicScreen';
 import { EventScreen } from './screens/EventScreen';
 import { SettingScreen } from './screens/SettingScreen';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { SignInScreen } from './screens/LoginScreen';
+import { SignUpScreen } from './screens/SignUpScreen';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path={`/delivery-music`} element={<MusicScreen />} />
         <Route path={`/event-setting`} element={<EventScreen />} />
         <Route path={`/settings`} element={<SettingScreen />} />
+        <Route path={`/Login`} element={<SignInScreen />} />
+        <Route path={`/SignUp`} element={<SignUpScreen />} />
       </Routes>
     </BrowserRouter>
   );

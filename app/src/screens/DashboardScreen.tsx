@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import PageLayout from '../layout/Header';
 import { Grid } from '@mui/material';
@@ -10,6 +10,9 @@ import { Bar } from 'react-chartjs-2';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { DefaultButton } from '../components/button/DefaultButton';
 import { TextCheckbox } from '../components/input/CheckboxText';
+import { SnsIconButton } from '../components/button/SnsIconButton';
+import { DefaultInputForm } from '../components/input/DefaultInputForm';
+import { Controller, useForm } from 'react-hook-form';
 
 ChartJS.register(...registerables);
 
@@ -61,7 +64,7 @@ const DashboardItem = styled.div`
 
 const TeamIntroductionContainer = styled.div`
   width: 90%;
-  height: 220px;
+  height: 200px;
   margin: 0 auto;
   background-color: #ececec;
 `
@@ -100,6 +103,10 @@ export const DashboardScreen = () => {
   const [membersWanted, setMembersWanted] = useState(false);
   const [experienceSession, setExperienceSession] = useState(false);
   const [snsDisplayButton, setMembersWantedButton] = useState(false);
+  const {
+    handleSubmit,
+    control,
+  } = useForm();
 
   const labels = ["1 月", "2 月", "3 月", "4 月", "5 月", "6 月"];
   const graphData = {
@@ -170,24 +177,7 @@ export const DashboardScreen = () => {
     "bbbbb"
   ]
 
-  const onChangeMembersWantedButton = (e: CheckboxChangeEvent) => {
-    console.log(e.target.checked);
-    setMembersWantedButton(e.target.checked)
-  };
-
-  const onChangeExperienceSessionButton = (e: CheckboxChangeEvent) => {
-    console.log(e.target.checked);
-    setMembersWantedButton(e.target.checked)
-  };
-
-  const onChangeSnsDisplayButton = (e: CheckboxChangeEvent) => {
-    console.log(e.target.checked);
-    setMembersWantedButton(e.target.checked)
-  };
-
-  const displayButtonOnSubmit = () => {
-    console.log("保存しました");
-  };
+ 
 
   return (
     <>
@@ -207,17 +197,27 @@ export const DashboardScreen = () => {
               <TeamIntroductionContainer>
               </TeamIntroductionContainer>
               <Grid container spacing={2} style={{width: "90%", margin: "0 auto"}}>
-                <Grid item xs={6}>
-                  <TextCheckbox onChange={onChangeMembersWantedButton}>メンバー募集ボタンを表示</TextCheckbox>
+                <Grid item xs={3} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"twitter"} onClick={()=> console.log("twitter")} />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextCheckbox onChange={onChangeExperienceSessionButton}>体験会参加ボタンを表示</TextCheckbox>
+                <Grid item xs={3} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"facebook"} onClick={()=> console.log("twitter")} />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextCheckbox onChange={onChangeSnsDisplayButton}>SNSボタンを表示</TextCheckbox>
+                <Grid item xs={3} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"instagram"} onClick={()=> console.log("twitter")} />
                 </Grid>
-                <Grid item xs={6} style={{textAlign:"right", paddingRight: "50px"}}>
-                  <DefaultButton onClick={displayButtonOnSubmit} color={"green"}  height={"36px"} width={"100px"}>保存</DefaultButton>
+                <Grid item xs={3} style={{textAlign: "center"}}>
+                  <SnsIconButton platform={"youtube"} onClick={()=> console.log("twitter")} />
+                </Grid>
+                <Grid item xs={12} style={{textAlign: "center"}}>
+                <Controller
+                  control={control}
+                  name="email"
+                  render={({ field: { onChange, value } }) => (
+                    <DefaultInputForm value={value} onChange={onChange} />
+                  )}
+                />
+
                 </Grid>
               </Grid>
             </TeamDetailContainer>
