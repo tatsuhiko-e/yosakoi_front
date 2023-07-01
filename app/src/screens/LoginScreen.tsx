@@ -1,14 +1,19 @@
 import { Input } from 'antd';
-import React, { useCallback, useMemo, useState, ReactNode, Fragment } from 'react';
+import React, { useCallback, useContext, useState, useEffect } from 'react';
 import { Controller, useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import styled from 'styled-components'
 import { DefaultButton } from '../components/button/DefaultButton';
 import { DefaultInputForm } from '../components/input/DefaultInputForm';
 import PageLayout from '../layout/Header';
-
+import { getCurrentUser, signIn } from '../lib/api/adminAuth';
+import { AuthContext } from '../App';
 
 export const SignInScreen = () => {
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const [loading, setLoading] = useState(true);
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
   const navigate = useNavigate()
   const {
     handleSubmit,
@@ -17,8 +22,36 @@ export const SignInScreen = () => {
   } = useForm();
 
   const onSubmit = async (data: any) => {
+
     console.log(data)
+    try {
+      const res: any = await signIn(data)
+
+      console.log(res)
+      if (res.status === 200) {
+        console.log(res.headers["access-token"])
+        // ログインに成功した場合はCookieに各値を格納
+        Cookies.set("_access_token", res.headers["access-token"])
+        Cookies.set("_client", res.headers["client"])
+        Cookies.set("_uid", res.headers["uid"])
+  
+        setIsSignedIn(true)
+        console.log(res.data.data)
+        setCurrentUser(res.data.data)
+  
+        navigate("/")
+  
+        console.log("Signed in successfully!")
+      } else {
+        setAlertMessageOpen(true)
+      }
+    } catch (err) {
+      console.log(err)
+      setAlertMessageOpen(true)
+    }
+  
   }
+
 
   const LoginInput = styled(Input)`
     font-size: 18px;
