@@ -74,7 +74,7 @@ export const EventCard = (props: any) => {
         break
       default:
     }
-  },[])
+  },[props])
 
 
   const MusicCardContainer = styled.div`

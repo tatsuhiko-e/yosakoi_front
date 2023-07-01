@@ -1,8 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import { Layout, Menu, theme } from 'antd';
 import { menuItems } from '../routes/route';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthContext } from '../App';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -22,6 +25,7 @@ const UserName = styled.div`
 
 const PageLayout = ({ children }: any) => {
   const [collapsed, setCollapsed] = useState(false);
+  const User = useContext(AuthContext);
   return (
     <Fragment>
       <Layout style={{margin: 0}}>
@@ -49,7 +53,8 @@ const PageLayout = ({ children }: any) => {
         <Layout className="site-layout">
           <Header className="header" style={{ display: "flex", justifyContent: "end" }}>
             <div style={{ display: "flex" }}>
-              <UserName>江口正樹</UserName>
+              <UserName>{User.currentUser?.teamName}</UserName>
+              <LogoutIcon></LogoutIcon>
             </div>
           </Header>
           <Content style={{ padding: "26px 16px", height: "100vh", overflow: "scroll" }}>

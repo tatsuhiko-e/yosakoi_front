@@ -31,30 +31,16 @@ const PageContainer = styled.div`
 }
 `
 
-export const EventCalendar = () => {
+export const EventCalendar = (props: any) => {
   const [events, setEvents]: any = useState([])
-  const eevent = [
-    { title: "event 1", start: "2023-06-01 15:00:00", end: "2023-06-01 19:00:00"},
-    // endに指定した日付は含まないので注意
-    { title: "event 1", start: "2022-06-01 13:00:00", end: "2022-06-01 19:00:00"},
-    {
-      title: "event 3",
-      start: "2021-06-07T10:00:00", // 時間を指定するときはISO 8601の形式で。
-    },
-  ];
-
   const handleDateClick = (arg: any) => { // bind with an arrow function
     console.log(arg.event.title)
   }
 
-  useEffect(() => {
-    setEvents(eevent)
-  }, events)
-
   return (
     <PageContainer>
       <StyledFullCalendar
-        events={events}
+        events={props.data}
         locale="ja"// ロケール設定。
         plugins={[timeGridPlugin, dayGridPlugin]} // 週表示、月表示、日付等のクリックを可能にするプラグインを設定。
         initialView="dayGridMonth" // カレンダーの初期表示設定。この場合、週表示。
