@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState, ReactNode, Fragment, Suspense, ChangeEvent, useEffect } from 'react';
+import { useSelector } from "react-redux";
 import styled from 'styled-components'
 import PageLayout from '../layout/Header';
 import FullCalendar from '@fullcalendar/react';
@@ -7,27 +8,49 @@ import { EventCalendar } from '../components/EventCalendar';
 import { EventCard } from '../components/card/EventCard';
 import { NavTasbs } from '../layout/NavTabs';
 import { TextCheckbox } from '../components/input/CheckboxText';
+import { getEventList } from '../lib/api/event';
+import { MusicAddCard } from '../components/card/AddMusicCard';
+import { EventPostCard } from '../components/card/EventPostCard';
 
+type EventType = {
+  admin_id: number;
+  start: string;
+  end: string;
+  event_type: number;
+  title: String;
+  area: String;
+}
 
+const CheckBoxItem = [
+  "練習",
+  "イベント",
+  "大会"
+]
 
-const data: any[] = [
+const data: EventType[] = [
   {
-    id: 1,
+    admin_id: 0,
+    start: "2023-06-01 15:00:00",
+    end: "2023-06-01 15:00:00",
     event_type: 1,
-    title: '江口',
-    theme: '曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ曲のテーマ',
+    title: "タイトル1",
+    area: "東京",
   },
   {
-    id: 2,
+    admin_id: 1,
+    start: "2023-06-01 15:00:00",
+    end: "2023-06-01 15:00:00",
     event_type: 2,
-    title: '藤井',
-    theme: 'cdcdscdsc',
+    title: "タイトル2",
+    area: "東京",
   },
   {
-    id: 3,
-    event_type: 3,
-    title: 'Joe Black',
-    theme: 'Lake ParkLake ParkLake ParkLake ParkLake ParkLake ParkLake Park',
+    admin_id: 1,
+    start: "2023-06-01 15:00:00",
+    end: "2023-06-01 15:00:00",
+    event_type: 2,
+    title: "タイトル",
+    area: "東京",
   }
 ];
 
@@ -35,8 +58,10 @@ const CheckBoxContainer = styled.div`
   margin: 32px;
 `
 
-
 export const EventScreen = () => {
+  const [musicPostCardOpen, setMusicPostCardOpen] = useState(false);
+  const [eventData, setEventData]: any = useState([])
+  const [filterData, setFilterData]: any = useState([])
   const [indeterminateFilter, setIndeterminateFilter] = useState(false)
   const [allFilter, setAllFilter] = useState(true)
   const [lessonFilter, setLessonFilter] = useState(true)
@@ -44,10 +69,12 @@ export const EventScreen = () => {
   const [festivalFilter, setFestivalFilter] = useState(true)
   const filterList = [lessonFilter, eventFilter, festivalFilter]
 
-  const isFilterChecked = (value: boolean) => {return value}
+  const handleChangePostCardOpenFlag = () => {
+    setMusicPostCardOpen(!musicPostCardOpen)
+  }
 
   const ChangeAllChecked = () => {
-    if(filterList.every(isFilterChecked)){
+    if (filterList.every((value: boolean) => { return value })) {
       setLessonFilter(false)
       setEventFilter(false)
       setFestivalFilter(false)
@@ -58,59 +85,77 @@ export const EventScreen = () => {
     }
   }
 
-  const ChangeLessonFilterChecked = (e: any) => {
-    setLessonFilter(e.target.checked)
-
-  }
-
-  const ChangeEventFilterChecked = (e: any) => {
-    setEventFilter(e.target.checked)
-  }
-
-  const ChangeFestivalFilterChecked = (e: any) => {
-    setFestivalFilter(e.target.checked)
+  const loadEventData = async () => {
+    try {
+      const res = await getEventList();
+      console.log(res.data);
+      setEventData(res.data);
+      console.log("asdsd")
+    }
+    catch (e) {
+      console.log(e)
+    };
   }
 
   useEffect(() => {
+    loadEventData();
+  }, []);
+
+  useEffect(() => {
     let filterCount: number = 0
-    filterList.map((value: boolean)=>{
-      if(value){
+    filterList.map((value: boolean) => {
+      if (value) {
         filterCount += 1
       }
     })
-    if(filterCount === 3){
+    if (filterCount === 3) {
       setAllFilter(true);
       setIndeterminateFilter(false)
-    } else if(filterCount > 0){
+    } else if (filterCount > 0) {
       setAllFilter(false)
       setIndeterminateFilter(true);
     } else {
       setAllFilter(false)
       setIndeterminateFilter(false)
     }
-  },[filterList])
+    // console.log(eventData)
+    const numberFilterList: (number | null)[] = filterList.map((val, index) => val ? index : null)
+    const result = eventData ? eventData.filter((value: EventType) => numberFilterList.includes(value.event_type)) : []
+    setFilterData(result)
+    console.log(eventData)
+  }, filterList)
 
+  console.log(filterData)
   return (
-    <>
-      <PageLayout>
-        <EventCalendar
-        />
-        <CheckBoxContainer>
-          <TextCheckbox onChange={ChangeAllChecked} indeterminate={indeterminateFilter} checked={allFilter}>{"全て"}</TextCheckbox>
-          <TextCheckbox onChange={(e: ChangeEvent) => ChangeLessonFilterChecked(e)} checked={lessonFilter}>{"練習"}</TextCheckbox>
-          <TextCheckbox onChange={(e: ChangeEvent) => ChangeEventFilterChecked(e)} checked={eventFilter}>{"イベント"}</TextCheckbox>
-          <TextCheckbox onChange={(e: ChangeEvent) => ChangeFestivalFilterChecked(e)} checked={festivalFilter}>{"大会"}</TextCheckbox>
-        </CheckBoxContainer>
-        <div style={{ margin: "8px auto", padding: "16px", width: "100%", backgroundColor: "#ffffff" }}>
-          {data.map((item: any, index: number) => {
-            return (
-              <Suspense fallback={<div>...Loading</div>}>
-                <EventCard data={item} key={index} />
-              </Suspense>
-            )
-          })}
-        </div>
-      </PageLayout>
-    </>
+    <PageLayout>
+      {
+        !musicPostCardOpen ?
+          <>
+            <EventCalendar
+              data={filterData}
+            />
+            <CheckBoxContainer>
+              <TextCheckbox onChange={ChangeAllChecked} indeterminate={indeterminateFilter} checked={allFilter}>{"全て"}</TextCheckbox>
+              <TextCheckbox onChange={(e: any) => setLessonFilter(e.target.checked)} checked={lessonFilter}>{"練習"}</TextCheckbox>
+              <TextCheckbox onChange={(e: any) => setEventFilter(e.target.checked)} checked={eventFilter}>{"イベント"}</TextCheckbox>
+              <TextCheckbox onChange={(e: any) => setFestivalFilter(e.target.checked)} checked={festivalFilter}>{"大会"}</TextCheckbox>
+            </CheckBoxContainer>
+            <div style={{ margin: "8px auto", padding: "16px", width: "100%", backgroundColor: "#ffffff" }}>
+              <MusicAddCard onClick={handleChangePostCardOpenFlag} />
+              {filterData.map((item: any, index: number) => {
+                return (
+                  <Suspense fallback={<div>...Loading</div>}>
+                    <EventCard data={item} key={index} />
+                  </Suspense>
+                )
+              })}
+            </div>
+          </>
+          :
+          <div style={{ margin: "8px auto", width: "100%" }}>
+            <EventPostCard onClick={handleChangePostCardOpenFlag} />
+          </div>
+      }
+    </PageLayout>
   );
 }
