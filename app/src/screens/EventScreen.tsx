@@ -27,33 +27,6 @@ const CheckBoxItem = [
   "大会"
 ]
 
-const data: EventType[] = [
-  {
-    admin_id: 0,
-    start: "2023-06-01 15:00:00",
-    end: "2023-06-01 15:00:00",
-    event_type: 1,
-    title: "タイトル1",
-    area: "東京",
-  },
-  {
-    admin_id: 1,
-    start: "2023-06-01 15:00:00",
-    end: "2023-06-01 15:00:00",
-    event_type: 2,
-    title: "タイトル2",
-    area: "東京",
-  },
-  {
-    admin_id: 1,
-    start: "2023-06-01 15:00:00",
-    end: "2023-06-01 15:00:00",
-    event_type: 2,
-    title: "タイトル",
-    area: "東京",
-  }
-];
-
 const CheckBoxContainer = styled.div`
   margin: 32px;
 `

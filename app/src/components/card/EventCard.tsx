@@ -236,5 +236,4 @@ export const EventCard = (props: any) => {
         </MusicCardContainer>
       );
   }
-
 }
