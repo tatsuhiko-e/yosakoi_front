@@ -13,6 +13,9 @@ import { TextCheckbox } from '../components/input/CheckboxText';
 import { SnsIconButton } from '../components/button/SnsIconButton';
 import { DefaultInputForm } from '../components/input/DefaultInputForm';
 import { Controller, useForm } from 'react-hook-form';
+import { MusicAddCard } from '../components/card/AddMusicCard';
+import { DancerCard } from '../components/card/DancerCard';
+import { getDancerList } from '../lib/api/dancer';
 
 ChartJS.register(...registerables);
 
@@ -58,14 +61,22 @@ const TeamNameText = styled.div`
 
 const DashboardItem = styled.div`
   width: 100%;
-  height: 400px;
+  height: 380px;
+  padding: 32px;
   background-color: #ffffff;
 `
 
 const TeamIntroductionContainer = styled.div`
   width: 90%;
-  height: 200px;
+  height: 230px;
   margin: 0 auto;
+  background-color: #ececec;
+`
+
+const TeamHomePageContainer = styled.div`
+  width: 90%;
+  height: 48px;
+  margin: 32px auto;
   background-color: #ececec;
 `
 
@@ -103,29 +114,7 @@ export const DashboardScreen = () => {
   const [membersWanted, setMembersWanted] = useState(false);
   const [experienceSession, setExperienceSession] = useState(false);
   const [snsDisplayButton, setMembersWantedButton] = useState(false);
-  const {
-    handleSubmit,
-    control,
-  } = useForm();
-
-  const labels = ["1 月", "2 月", "3 月", "4 月", "5 月", "6 月"];
-  const graphData = {
-    labels: labels,
-    datasets: [
-      {
-        data: [65, 59, 60, 81, 56, 55],
-        borderColor: "rgb(75, 192, 192)",
-      },
-    ],
-  };
-  const options: {} = {
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  };
+  const [dancersData, setDancersData] = useState<DataType[]>([]);
 
   const genderLabels = ["男性", "女性", "不明"];
   const genderData = {
@@ -148,36 +137,28 @@ export const DashboardScreen = () => {
     },
   };
 
-  const downloadLabels = ["桜華爛漫", "麗華夢繋", "月華千秋", "精華嫋嫋", "ふうしかでン", "封印画化"];
-  const downloadData = {
-    labels: downloadLabels,
-    datasets: [
-      {
-        data: [39, 59, 60, 79, 131, 229],
-        borderColor: ["rgb(75, 192, 192)", "rgb(224, 146, 196)", "rgb(198, 255, 200)", "rgb(241, 255, 163)", "rgb(101, 175, 85)"],
-        backgroundColor: ["rgb(138, 238, 238)", "rgb(248, 180, 223)", "rgb(229, 255, 230)", "rgb(249, 255, 218)", "rgb(149, 219, 134)"],
-      },
-    ],
-  };
-  const downloadOptions: {} = {
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  };
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   }
 
-  const musics: any[] = [
-    "aaaaa",
-    "bbbbb"
-  ]
+  const loadDancersData = async () => {
+    try {
+      const res = await getDancerList(1);
+      console.log(res.data);
+      setDancersData(res.data);
+      console.log("asdsd")
+    }
+    catch (e) {
+      console.log(e)
+    };
+  }
 
- 
+  useEffect(() => {
+    loadDancersData();
+  }, []);
+
+
 
   return (
     <>
@@ -192,86 +173,9 @@ export const DashboardScreen = () => {
               </TeamNameText>
             </TeamDetailContainer>
           </Grid>
-          <Grid item xs={8}>
-            <TeamDetailContainer>
-              <TeamIntroductionContainer>
-              </TeamIntroductionContainer>
-              <Grid container spacing={2} style={{width: "90%", margin: "0 auto"}}>
-                <Grid item xs={3} style={{textAlign: "center"}}>
-                  <SnsIconButton platform={"twitter"} onClick={()=> console.log("twitter")} />
-                </Grid>
-                <Grid item xs={3} style={{textAlign: "center"}}>
-                  <SnsIconButton platform={"facebook"} onClick={()=> console.log("twitter")} />
-                </Grid>
-                <Grid item xs={3} style={{textAlign: "center"}}>
-                  <SnsIconButton platform={"instagram"} onClick={()=> console.log("twitter")} />
-                </Grid>
-                <Grid item xs={3} style={{textAlign: "center"}}>
-                  <SnsIconButton platform={"youtube"} onClick={()=> console.log("twitter")} />
-                </Grid>
-                <Grid item xs={12} style={{textAlign: "center"}}>
-                <Controller
-                  control={control}
-                  name="email"
-                  render={({ field: { onChange, value } }) => (
-                    <DefaultInputForm value={value} onChange={onChange} />
-                  )}
-                />
 
-                </Grid>
-              </Grid>
-            </TeamDetailContainer>
-          </Grid>
-        </Grid>
-        <Grid container spacing={2}>
           <Grid item xs={4}>
             <DashboardItem>
-              <Select defaultValue="全て" size={'large'} style={{ width: 160, margin: "16px" }} onChange={handleChange}>
-                {
-                  musics.map((option: string, index: number) =>
-                    <Option value={option} key={index}>{option}</Option>
-                  )
-                }
-              </Select>
-              <ProceedsChartContainer>
-                <Line
-                  style={{ width: "65", height: "70" }}
-                  data={graphData}
-                  options={options}
-                  id="chart-key"
-                />
-              </ProceedsChartContainer>
-              <ProceedsText>0 JPY</ProceedsText>
-            </DashboardItem>
-          </Grid>
-          <Grid item xs={4}>
-            <DashboardItem>
-              <Select defaultValue="全て" size={'large'} style={{ width: 160, margin: "16px" }} onChange={handleChange}>
-                {
-                  musics.map((option: string, index: number) =>
-                    <Option value={option} key={index}>{option}</Option>
-                  )
-                }
-              </Select>
-              <DownloadChartContainer>
-                <Bar
-                  style={{ width: "65", height: "70" }}
-                  data={downloadData}
-                  options={downloadOptions}
-                  id="chart-key"
-                />
-              </DownloadChartContainer>
-            </DashboardItem>
-          </Grid>
-          <Grid item xs={4}>
-            <DashboardItem>
-              <Select defaultValue="全て" size={'large'} style={{ width: 160, margin: "16px" }} onChange={handleChange}>
-                {
-                  musics.map((option: string, index: number) =>
-                    <Option value={option} key={index}>{option}</Option>
-                  )
-                }
-              </Select>
               <GenderChartContainer>
                 <Pie
                   style={{ width: "65", height: "70" }}
@@ -281,6 +185,15 @@ export const DashboardScreen = () => {
                 />
               </GenderChartContainer>
             </DashboardItem>
+          </Grid>
+          <Grid item xs={12}>
+          <div style={{ margin: "8px auto", padding: "16px", width: "100%", backgroundColor: "#ffffff" }}>
+              {dancersData.map((item: any, index: number) => {
+                return (
+                    <DancerCard data={item} key={index}  />
+                )
+              })}
+          </div>
           </Grid>
         </Grid>
       </PageLayout>

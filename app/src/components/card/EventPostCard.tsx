@@ -4,7 +4,7 @@ import type { DatePickerProps } from 'antd';
 import { DatePicker, Space } from 'antd';
 import { Radio } from 'antd';
 import { Grid } from '@mui/material';
-import { DefaultInputForm } from '../input/DefaultInputForm';
+import { DefaultInputForm} from '../input/DefaultInputForm';
 import { DefaultTextArea } from '../input/DefaultinputTextArea';
 import { UploadButton } from '../button/UploadButton';
 import { DefaultButton } from '../button/DefaultButton';
@@ -42,7 +42,7 @@ export const EventPostCard = (props: any) => {
     padding: 32px;
     margin: 16px auto;
     width: 96%;
-    height: 450px;
+    height: 530px;
     border: 1px solid #888888;
     box-shadow: 1px 5px 5px 1px #999;
   `
@@ -50,6 +50,12 @@ export const EventPostCard = (props: any) => {
   const onChange: DatePickerProps['onChange'] = (date, dateString) => {
     console.log(date, dateString);
   };
+
+  const InputFormText = styled.div`
+    font-size: 18px;
+    font-weight: bold;
+    margin: 4px 4px 4px 0;
+  `
 
   const selectAudio = (e: any) => {
     const selectedAudio = e.target.files[0]
@@ -72,12 +78,16 @@ export const EventPostCard = (props: any) => {
     <EventCardContainer>
       <Grid container spacing={2} style={{ width: "90%", margin: "0 auto" }}>
         <Grid item xs={10}>
-          <Radio.Group name="radiogroup" size="large" defaultValue={1}>
-            <RadioButtonStyle value={1}>A</RadioButtonStyle>
-            <RadioButtonStyle value={2}>B</RadioButtonStyle>
-            <RadioButtonStyle value={3}>C</RadioButtonStyle>
-            <RadioButtonStyle value={4}>D</RadioButtonStyle>
+          <Radio.Group name="radiogroup" size="small" defaultValue={1}>
+            <Radio value={1}>練習</Radio>
+            <Radio value={2}>イベント</Radio>
+            <Radio value={3}>大会</Radio>
+            <Radio value={4}>その他</Radio>
           </Radio.Group>
+          <Space>
+            <InputFormText>開始日</InputFormText>
+            <DatePicker onChange={onChange} size='large' />
+          </Space>
         </Grid>
         <Grid item xs={2} style={{ textAlign: "right" }}>
           <ClearIcon onClick={props.onClick} sx={{ fontSize: 40 }} />
@@ -86,15 +96,19 @@ export const EventPostCard = (props: any) => {
           <DefaultInputForm onChange={props.onChange} value={props.value}>タイトル＊</DefaultInputForm>
         </Grid>
         <Grid item xs={4}>
-          <Space direction="vertical">
-            <DatePicker onChange={onChange} size='large' />
-          </Space>
+
         </Grid>
         <Grid item xs={4}>
-          <DefaultInputForm onChange={props.onChange} value={props.value}>チーム名(変更がある場合)</DefaultInputForm>
+          
+        </Grid>
+        <Grid item xs={4}>
+          
+        </Grid>
+        <Grid item xs={4}>
+          <DefaultInputForm onChange={props.onChange} value={props.value}>場所＊</DefaultInputForm>
         </Grid>
         <Grid item xs={8}>
-          <DefaultTextArea onChange={props.onChange} children={"テーマ＊"} value={props.value} />
+          <DefaultTextArea onChange={props.onChange} children={""} value={props.value} />
         </Grid>
         <Grid item xs={3}>
         </Grid>

@@ -27,7 +27,6 @@ export const SignInScreen = () => {
     try {
       const res: any = await signIn(data)
 
-      console.log(res)
       if (res.status === 200) {
         console.log(res.headers["access-token"])
         // ログインに成功した場合はCookieに各値を格納
@@ -40,8 +39,6 @@ export const SignInScreen = () => {
         setCurrentUser(res.data.data)
   
         navigate("/")
-  
-        console.log("Signed in successfully!")
       } else {
         setAlertMessageOpen(true)
       }
