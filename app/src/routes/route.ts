@@ -2,13 +2,13 @@ export const menuItems = [
   {
     label: 'ダッシュボード',
     key: '1',
-    path: "/dashboard",
+    path: "/",
   },
-  {
-    label: 'ミュージック',
-    key: '2',
-    path: "/delivery-music",
-  },
+  // {
+  //   label: 'ミュージック',
+  //   key: '2',
+  //   path: "/delivery-music",
+  // },
   {
     label: 'イベント',
     key: '3',
